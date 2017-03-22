@@ -11,7 +11,7 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <mybatis:scan base-package="com.reedmi.*.dao"/>
+    <mybatis:scan base-package="com.ssm.*.dao"/>
 
     <!-- 配置数据源 -->
     <bean id="datasource" class="com.alibaba.druid.pool.DruidDataSource">

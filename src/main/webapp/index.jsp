@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>SSM</h2>
+    <a href="/users/list">List Users.</a>
 </body>
 </html>
