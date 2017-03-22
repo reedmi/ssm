@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://mybatis.org/schema/mybatis-spring
+		http://mybatis.org/schema/mybatis-spring.xsd
+        http://www.springframework.org/schema/jdbc
+        http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+    <mybatis:scan base-package="com.ssm.*.dao"/>
+
+    <jdbc:embedded-database id="datasource" type="H2">
+        <jdbc:script location="classpath:h2/ssm-ddl.sql"/>
+        <jdbc:script location="classpath:h2/ssm-init.sql"/>
+    </jdbc:embedded-database>
+
+    <!-- 加载mybatis配置文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="datasource"/>
+        <property name="configLocation" value="classpath:mybatis/conf/mybatis-conf.xml"/>
+        <!--<property name="mapperLocations" value="classpath:mybatis/sqlmap/*_mapper.xml"/>-->
+    </bean>
+
+</beans>
