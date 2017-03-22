@@ -19,9 +19,9 @@
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
-        <property name="initialSize" value="${sdb.initialPoolSize}"/>
-        <property name="minIdle" value="${sdb.minPoolSize}"/>
-        <property name="maxActive" value="${sdb.maxPoolSize}"/>
+        <property name="initialSize" value="${sdb.initialSize}"/>
+        <property name="minIdle" value="${sdb.minIdle}"/>
+        <property name="maxActive" value="${sdb.maxActive}"/>
         <property name="removeAbandonedTimeout" value="${sdb.checkoutTimeout}"/>
     </bean>
 

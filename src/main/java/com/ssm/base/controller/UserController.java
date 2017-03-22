@@ -34,7 +34,7 @@ public class UserController {
 
     @RequestMapping("/delete/{id}")
     public String save(@PathVariable Long id) {
-        userMapper.delete(id);
+        Integer ret = userMapper.delete(id);
         return "redirect:/users/list";
     }
 }

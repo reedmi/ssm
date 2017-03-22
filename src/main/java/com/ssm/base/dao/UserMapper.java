@@ -18,5 +18,5 @@ public interface UserMapper {
     public User findById(Long id);
 
     @Delete("delete from tb_user where id = #{id}")
-    public void delete(Long id);
+    public Integer delete(Long id);
 }
