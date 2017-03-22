@@ -14,22 +14,33 @@
     <mybatis:scan base-package="com.ssm.*.dao"/>
 
     <!-- 配置数据源 -->
-    <bean id="datasource" class="com.alibaba.druid.pool.DruidDataSource">
+    <bean id="datasource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driver}"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
-        <property name="initialSize" value="${sdb.initialPoolSize}"/>
-        <property name="minIdle" value="${sdb.minPoolSize}"/>
-        <property name="maxActive" value="${sdb.maxPoolSize}"/>
-        <property name="removeAbandonedTimeout" value="${sdb.checkoutTimeout}"/>
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${sdb.initialSize}"/>
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="${sdb.maxActive}"/>
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${sdb.minIdle}"/>
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${sdb.maxWait}"/>
     </bean>
 
     <!-- 加载mybatis配置文件 -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <bean id="sqlSessionFactory" class="com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean">
         <property name="dataSource" ref="datasource"/>
         <property name="configLocation" value="classpath:mybatis/conf/mybatis-conf.xml"/>
-        <!--<property name="mapperLocations" value="classpath:mybatis/sqlmap/*_mapper.xml"/>-->
+        <property name="typeAliasesPackage" value="com.ssm.*.model"/>
+        <property name="plugins">
+            <array>
+                <bean id="paginationInterceptor" class="com.baomidou.mybatisplus.plugins.PaginationInterceptor">
+                    <property name="dialectType" value="mysql"/>
+                </bean>
+            </array>
+        </property>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

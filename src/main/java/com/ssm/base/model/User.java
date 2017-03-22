@@ -1,5 +1,6 @@
 package com.ssm.base.model;
 
+import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
+@TableName(value = "tb_user")
 public class User {
     private Long id;
     private String name;

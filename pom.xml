@@ -53,18 +53,6 @@
       <version>${spring.version}</version>
     </dependency>
 
-    <!-- mybatis -->
-    <dependency>
-      <groupId>org.mybatis</groupId>
-      <artifactId>mybatis</artifactId>
-      <version>${mybatis.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.mybatis</groupId>
-      <artifactId>mybatis-spring</artifactId>
-      <version>1.2.2</version>
-    </dependency>
-
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
@@ -75,7 +63,6 @@
       <artifactId>druid</artifactId>
       <version>1.0.29</version>
     </dependency>
-
 
     <!-- log start -->
     <dependency>
@@ -131,6 +118,12 @@
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
       <version>1.2.7</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus</artifactId>
+      <version>2.0.2</version>
     </dependency>
 
     <!---->
