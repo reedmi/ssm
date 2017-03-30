@@ -19,4 +19,15 @@
         </property>
     </bean>
 
+    <bean id="applicationEventMulticaster" class="org.springframework.context.event.SimpleApplicationEventMulticaster">
+        <property name="taskExecutor">
+            <bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+                <property name="corePoolSize" value="5"/>
+                <property name="keepAliveSeconds" value="30000"/>
+                <property name="maxPoolSize" value="50"/>
+                <property name="queueCapacity" value="200"/>
+            </bean>
+        </property>
+    </bean>
+
 </beans>

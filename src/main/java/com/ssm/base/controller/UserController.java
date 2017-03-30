@@ -26,7 +26,7 @@ public class UserController {
     UserMapper userMapper;
 
     @RequestMapping("/list")
-    public String list(Model model) {
+    public String list(HttpServletRequest request, Model model) {
         List<User> users = userMapper.findAll();
         model.addAttribute("users", users);
         return "list";
