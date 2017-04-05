@@ -1,4 +1,4 @@
-package com.ssm.base.obervers;
+package com.ssm.base.oberver;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,5 @@
-package com.ssm.base.obervers;
+package com.ssm.base.oberver;
 
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 

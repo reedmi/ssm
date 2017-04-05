@@ -2,7 +2,9 @@ package com.ssm.base.dao;
 
 import com.ssm.base.model.User;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -12,11 +14,15 @@ import java.util.List;
 public interface UserMapper {
 
     @Select("select id, name, age, birth_day from tb_user;")
-    public List<User> findAll();
+    List<User> findAll();
 
     @Select("select id, name, age, birth_day from tb_user where id = #{id}")
-    public User findById(Long id);
+    User findById(Long id);
 
     @Delete("delete from tb_user where id = #{id}")
-    public Integer delete(Long id);
+    Integer delete(Long id);
+
+    @Select("select * from tb_user where id in(${ids})")
+    List<User> findIn(@Param("ids") String ids);
+
 }

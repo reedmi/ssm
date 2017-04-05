@@ -1,7 +1,7 @@
 package com.ssm.user;
 
 import com.ssm.base.Junit4Test;
-import com.ssm.base.obervers.EmailPublisher;
+import com.ssm.base.oberver.EmailPublisher;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

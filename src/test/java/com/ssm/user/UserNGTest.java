@@ -1,10 +1,16 @@
 package com.ssm.user;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ssm.base.NGTest;
 import com.ssm.base.dao.UserMapper;
+import com.ssm.base.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author reed.mi
@@ -18,5 +24,25 @@ public class UserNGTest extends NGTest {
 	@Test
 	public void test() {
 		Assert.assertEquals(userMapper.findAll().size(), 4);
+	}
+
+	@Test
+	public void testEqual() {
+		User u1 = new User();
+		u1.setId(1L);
+		u1.setBirthDay(new Date());
+		u1.setName("reedmi");
+		u1.setAge("1");
+
+		List<User> users = new ArrayList<>();
+		users.add(u1);
+
+		Assert.assertEquals(users.contains(u1), true);
+	}
+
+	@Test
+	public void testIn() {
+		List<User> users = userMapper.findIn("1,2,3");
+		System.out.println(JSONObject.toJSONString(users));
 	}
 }
