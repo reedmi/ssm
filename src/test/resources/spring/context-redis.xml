@@ -12,7 +12,7 @@
         <property name="testOnBorrow" value="${redis.testOnBorrow}" />
     </bean>
 
-    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
         <property name="hostName" value="${redis.host}"/>
         <property name="port" value="${redis.port}"/>
         <property name="password" value="${redis.password}"/>
@@ -22,7 +22,7 @@
     </bean>
 
     <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
-        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="connectionFactory" ref="jedisConnectionFactory" />
     </bean>
 
 </beans>

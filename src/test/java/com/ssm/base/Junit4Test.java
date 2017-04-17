@@ -10,6 +10,8 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 @ContextConfiguration({
 		"classpath:spring/context.xml",
 		"classpath:spring/context-db.xml",
-		"classpath:spring/controller.xml"})
+		"classpath:spring/context-redis.xml",
+		"classpath:spring/context-mq.xml"
+})
 public class Junit4Test extends AbstractJUnit4SpringContextTests {
 }
