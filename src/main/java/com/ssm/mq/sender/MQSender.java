@@ -26,7 +26,7 @@ public class MQSender {
 
 	public void send(Object object) {
 		try {
-			System.out.println("send:\t" + object);
+			System.out.println("send: \t" + object);
 			amqpTemplate.convertAndSend(messageExchange, messageRoutingKey, object);
 		} catch (Exception e) {
 			LOG.error(e);

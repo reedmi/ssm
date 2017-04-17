@@ -16,7 +16,7 @@ public class TestQueue extends Junit4Test {
     @Test
     public void send(){
         Map<String, Object> msg = new HashMap<>();
-        msg.put("data", "hello,rabbmitmq!");
+        msg.put("data", "Hello, RabbitMQ.");
         mqSender.send(msg);
     }
 }
