@@ -19,7 +19,7 @@
                                 port="#{rabbitmq['mq.port']}"
                                 virtual-host="#{rabbitmq['mq.vhost']}"/>
 
-    <rabbit:admin connection-factory="mqConnectionFactory"/>
+    <rabbit:admin id="demoAdmin" connection-factory="mqConnectionFactory"/>
 
     <rabbit:template id="amqpTemplate"
                      exchange="#{rabbitmq['ops.demo.ssm.exchange']}"
@@ -30,11 +30,20 @@
 
     <rabbit:queue id="demo-queue"
                   name="#{rabbitmq['ops.demo.ssm.queue']}"
+                  declared-by="demoAdmin"
                   durable="true"
                   auto-delete="false"
-                  exclusive="false" />
+                  exclusive="false" >
+        <rabbit:queue-arguments>
+            <entry key="x-dead-letter-exchange" value="#{rabbitmq['ops.demo.ssm.retry.exchange']}"/>
+            <entry key="x-dead-letter-routing-key" value="#{rabbitmq['ops.demo.ssm.retry.routing.key']}"/>
+        </rabbit:queue-arguments>
+    </rabbit:queue>
 
-    <rabbit:direct-exchange id="#{rabbitmq['ops.demo.ssm.exchange']}" name="#{rabbitmq['ops.demo.ssm.exchange']}" durable="true" auto-delete="false">
+    <rabbit:direct-exchange id="#{rabbitmq['ops.demo.ssm.exchange']}"
+                            name="#{rabbitmq['ops.demo.ssm.exchange']}"
+                            durable="true"
+                            auto-delete="false">
         <rabbit:bindings>
             <rabbit:binding queue="demo-queue" key="#{rabbitmq['ops.demo.ssm.routing.key']}"/>
         </rabbit:bindings>
@@ -47,11 +56,42 @@
         <property name="maxConcurrentConsumers" value="20"/>
         <property name="connectionFactory" ref="mqConnectionFactory"/>
         <property name="defaultRequeueRejected" value="false"/>
-        <!-- 若为AUTO，则需修改messageListener=mqListenter -->
-        <property name="acknowledgeMode" value="MANUAL"/>
+        <property name="acknowledgeMode" value="AUTO"/>
         <property name="queues" ref="demo-queue"/>
-        <property name="messageListener" ref="mqAckListener"/>
+        <property name="messageListener" ref="mqListenter"/>
     </bean>
     <bean id="mqListenter" class="com.ssm.mq.listener.MQListenter"/>
-    <bean id="mqAckListener" class="com.ssm.mq.listener.MQAckListener"/>
+
+    <!-- retry配置 -->
+    <rabbit:queue id="demo-retry-queue"
+                  name="#{rabbitmq['ops.demo.ssm.retry.queue']}"
+                  declared-by="demoAdmin"
+                  durable="true"
+                  auto-delete="false"
+                  exclusive="false" >
+    </rabbit:queue>
+
+    <rabbit:direct-exchange id="demo-retry-exchange"
+                            durable="true"
+                            auto-delete="false"
+                            name="#{rabbitmq['ops.demo.ssm.retry.exchange']}">
+        <rabbit:bindings>
+            <rabbit:binding queue="demo-retry-queue"
+                            key="#{rabbitmq['ops.demo.ssm.retry.routing.key']}"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <bean id="demoRetryListenerContainer"
+          class="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer">
+        <property name="prefetchCount" value="20"/>
+        <property name="concurrentConsumers" value="10"/>
+        <property name="maxConcurrentConsumers" value="20"/>
+        <property name="connectionFactory" ref="mqConnectionFactory"/>
+        <property name="defaultRequeueRejected" value="false"/>
+        <property name="acknowledgeMode" value="AUTO"/>
+        <property name="queues" ref="demo-retry-queue"/>
+        <property name="messageListener" ref="mqRetryListenter"/>
+    </bean>
+    <bean id="mqRetryListenter" class="com.ssm.mq.listener.MQRetryListener"/>
+
 </beans>
