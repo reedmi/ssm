@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <util:properties id="quartz" location="classpath:quartz.properties"/>
+
+    <bean id="qzDatasource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="#{quartz['quartz.dataSource.driver']}"/>
+        <property name="url" value="#{quartz['quartz.dataSource.url']}"/>
+        <property name="username" value="#{quartz['quartz.dataSource.username']}"/>
+        <property name="password" value="#{quartz['quartz.dataSource.password']}"/>
+    </bean>
+
+    <bean name="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="15"/>
+        <property name="maxPoolSize" value="25"/>
+        <property name="queueCapacity" value="100"/>
+    </bean>
+
+    <bean name="scheduler" lazy-init="false" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="configLocation" value="classpath:quartz.properties"/>
+        <property name="dataSource" ref="qzDatasource"/>
+        <property name="taskExecutor" ref="taskExecutor"/>
+    </bean>
+
+</beans>

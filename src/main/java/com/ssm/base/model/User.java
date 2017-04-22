@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Created by ReedMi on 2017/3/22.
  */
-@Getter()
+@Getter
 @Setter
 @EqualsAndHashCode
 public class User {
