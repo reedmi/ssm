@@ -14,7 +14,7 @@ public class SimpleJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		System.out.println("In SimpleJob - executing its JOB at "
-				+ new Date() + " by " + context.getTrigger().getJobKey());
+//		System.out.println("In SimpleJob - executing its JOB at "
+//				+ new Date() + " by " + context.getTrigger().getJobKey());
 	}
 }

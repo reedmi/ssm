@@ -2,6 +2,7 @@ package com.ssm.base.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
@@ -11,7 +12,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-@EqualsAndHashCode
+@NoArgsConstructor
 public class User {
     private Long id;
     private String name;

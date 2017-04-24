@@ -11,7 +11,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 		"classpath:spring/context.xml",
 		"classpath:spring/context-db.xml",
 		"classpath:spring/context-redis.xml",
-		"classpath:spring/context-mq.xml"
+		"classpath:spring/context-quartz.xml"
 })
 public class NGTest extends AbstractTestNGSpringContextTests {
 
