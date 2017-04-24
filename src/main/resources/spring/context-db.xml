@@ -11,8 +11,6 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <mybatis:scan base-package="com.ssm.*.dao"/>
-
     <!-- 配置数据源 -->
     <bean id="datasource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="${jdbc.driver}"/>
@@ -29,7 +27,7 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="datasource"/>
         <property name="configLocation" value="classpath:mybatis/conf/mybatis-conf.xml"/>
-        <!--<property name="mapperLocations" value="classpath:mybatis/sqlmap/*_mapper.xml"/>-->
+        <property name="mapperLocations" value="classpath:mybatis/sqlmap/*_mapper.xml"/>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -38,4 +36,8 @@
 
     <tx:annotation-driven/>
 
+    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.ssm.base.dao.UserMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
 </beans>

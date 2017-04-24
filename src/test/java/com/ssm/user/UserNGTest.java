@@ -1,5 +1,6 @@
 package com.ssm.user;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.ssm.base.NGTest;
 import com.ssm.base.dao.UserMapper;
@@ -44,5 +45,13 @@ public class UserNGTest extends NGTest {
 	public void testIn() {
 		List<User> users = userMapper.findIn("1,2,3");
 		System.out.println(JSONObject.toJSONString(users));
+	}
+
+	@Test
+	public void testBetween() {
+		String startTime = "2017-04-24 20:00:00";
+		String endTime = "2017-04-25 20:00:00";
+		List<User> users = userMapper.findBirthDayBetween(startTime, endTime);
+		System.out.println(JSON.toJSONString(users));
 	}
 }

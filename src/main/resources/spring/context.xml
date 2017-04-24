@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--使用注解扫描注入，默认扫描包为base-package-->
-    <context:component-scan base-package="com.ssm"/>
+    <context:component-scan base-package="com.ssm.base"/>
 
     <!-- 使用spring提供的PropertyPlaceholderConfigurer读取配置信息.properties -->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

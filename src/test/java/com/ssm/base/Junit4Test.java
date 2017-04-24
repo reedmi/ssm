@@ -11,7 +11,8 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 		"classpath:spring/context.xml",
 		"classpath:spring/context-db.xml",
 		"classpath:spring/context-redis.xml",
-		"classpath:spring/context-mq.xml"
+		"classpath:spring/context-mq.xml",
+		"classpath:spring/context-quartz.xml"
 })
 public class Junit4Test extends AbstractJUnit4SpringContextTests {
 }

@@ -13,16 +13,13 @@ import java.util.List;
  */
 public interface UserMapper {
 
-    @Select("select id, name, age, birth_day from tb_user;")
     List<User> findAll();
 
-    @Select("select id, name, age, birth_day from tb_user where id = #{id}")
     User findById(Long id);
 
-    @Delete("delete from tb_user where id = #{id}")
     Integer delete(Long id);
 
-    @Select("select * from tb_user where id in(${ids})")
     List<User> findIn(@Param("ids") String ids);
 
+    List<User> findBirthDayBetween(@Param("startTime") String startTime, @Param("endTime") String endTime);
 }
