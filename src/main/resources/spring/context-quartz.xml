@@ -10,6 +10,7 @@
 
     <util:properties id="quartz" location="classpath:quartz.properties"/>
 
+    <!-- 动态schedule -->
     <bean id="qzDatasource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="#{quartz['quartz.dataSource.driver']}"/>
         <property name="url" value="#{quartz['quartz.dataSource.url']}"/>
@@ -27,6 +28,32 @@
         <property name="configLocation" value="classpath:quartz.properties"/>
         <property name="dataSource" ref="qzDatasource"/>
         <property name="taskExecutor" ref="taskExecutor"/>
+    </bean>
+
+    <!-- 静态schedule -->
+    <bean id="cronTask" class="com.ssm.job.CronTask"/>
+    <bean id="jobTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="cronTask"/>
+        </property>
+        <property name="targetMethod">
+            <value>start</value>
+        </property>
+    </bean>
+    <bean id="doTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="jobTask"/>
+        </property>
+        <property name="cronExpression">
+            <value>0/10 * * * * ?</value>
+        </property>
+    </bean>
+    <bean id="startQuertz" lazy-init="false" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="doTime"/>
+            </list>
+        </property>
     </bean>
 
 </beans>
