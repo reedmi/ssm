@@ -29,6 +29,8 @@ public class UserController {
     public String list(HttpServletRequest request, Model model) {
         List<User> users = userMapper.findAll();
         model.addAttribute("users", users);
+        request.setAttribute("users", users);
+        System.out.println(users.size());
         return "list";
     }
 

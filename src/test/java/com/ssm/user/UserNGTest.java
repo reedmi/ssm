@@ -33,7 +33,7 @@ public class UserNGTest extends NGTest {
 		u1.setId(1L);
 		u1.setBirthDay(new Date());
 		u1.setName("reedmi");
-		u1.setAge("1");
+		u1.setAge(1);
 
 		List<User> users = new ArrayList<>();
 		users.add(u1);
