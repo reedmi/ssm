@@ -1,8 +1,7 @@
 package com.ssm.cache;
 
 import com.ssm.base.NGTest;
-import com.ssm.base.cache.UserRedisRepo;
-import com.ssm.base.model.User;
+import com.ssm.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -14,22 +13,18 @@ import org.testng.annotations.Test;
 public class RedisNGTest extends NGTest {
 
 	@Autowired
-	UserRedisRepo redisUtil;
+	RedisUtils redisUtils;
 
 	@Test
 	public void testSave() {
 
-		Long id = 1L;
-		String name = "ssm";
+		String key = "ssm-key";
+		String value = "ssm-value";
 
-		final User user = new User();
-		user.setId(id);
-		user.setName(name);
-
-		Assert.assertEquals(redisUtil.save(user), Boolean.TRUE);
-
-		User existingUser = redisUtil.getUser(id);
-		Assert.assertNotNull(existingUser);
-		Assert.assertEquals(existingUser.getName(), name);
+		boolean exist = redisUtils.checkKeyExists(key);
+		if(!exist) {
+			redisUtils.setValueByKey(key, value);
+		}
+		Assert.assertEquals(redisUtils.getValueByKey(key), value);
 	}
 }

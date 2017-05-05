@@ -29,7 +29,6 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="datasource"/>
         <property name="configLocation" value="classpath:mybatis/conf/mybatis-conf.xml"/>
-        <!--<property name="mapperLocations" value="classpath:mybatis/sqlmap/*_mapper.xml"/>-->
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
